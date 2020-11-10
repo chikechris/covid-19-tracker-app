@@ -8,6 +8,8 @@ import {Cards, Chart, Countries} from './components'
 
 const App = () => {
 
+  const [data, setData] = useState({})
+
   useEffect(() => {
     async function fetchData() {
       const {data: {confirmed, recovered, deaths, lastUpdated}} = await axios.get(url)
@@ -16,19 +18,17 @@ const App = () => {
         recovered,
         deaths, 
         lastUpdated 
-       
       }
+      setData(modifiedData)
       console.log(modifiedData)
-      
+
       return modifiedData
-     
     }
-   
   fetchData()
   }, [])
   return (
     <div className= 'container'>
-      <Cards/>
+      <Cards data={data}/>
       <Countries/>
       <Chart/>
      
